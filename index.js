@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 const server = createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const THRESHOLD = 60;
+const THRESHOLD = 30;
 
 wss.on('connection', function (ws) {
   let responseNumber = 0;
@@ -23,7 +23,7 @@ wss.on('connection', function (ws) {
       clearInterval(id);
       return;
     }
-    console.log('send ' + (Math.random().toFixed(3) * 1000))
+    console.log('send ' + responseNumber)
     ws.send(JSON.stringify(process.memoryUsage()), function () {
       //
       // Ignore errors.
